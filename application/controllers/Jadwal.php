@@ -1,5 +1,5 @@
 <?php
-
+defined('BASEPATH') or exit('No direct script access allowed');
 class Jadwal extends CI_Controller
 {
     public function __construct()
@@ -12,13 +12,22 @@ class Jadwal extends CI_Controller
     public function index()
     {
         date_default_timezone_set('Asia/Jakarta');
-        $data = [
-            'title' => 'Kegiatan Hari Ini',
-            'tanggal' => date('Y-m-d')
-        ];
-        $this->load->view('templates/header', $data);
-        $this->load->view('jadwal/index', $data);
-        $this->load->view('templates/footer', $data);
+        if ($this->session->userdata('email')) {
+            $session['users'] = $this->db->get_where('users', array('email' => $this->session->userdata('email')))->row_array();
+            $data = [
+                'name' => $session['users']['name'],
+                'email' => $session['users']['email'],
+                'image' => $session['users']['image'],
+                'title' => 'Kegiatan Hari Ini',
+                'tanggal' => date('Y-m-d')
+            ];
+            $this->load->view('templates/header', $data);
+            $this->load->view('jadwal/index', $data);
+            $this->load->view('templates/footer', $data);
+        } else {
+            $this->session->set_flashdata('pesan', '<small><div class="alert alert-danger" role="alert">Silahkan Login Terlebih Dahulu</div></small>');
+            return redirect(base_url() . 'auth/');
+        }
     }
 
     public function update()
@@ -46,20 +55,49 @@ class Jadwal extends CI_Controller
 
     public function tambah_kegiatan()
     {
-        $nama_kegiatan = $this->input->post('nama_kegiatan', TRUE);
-        $tanggal = $this->input->post('tanggal', TRUE);
-        $tingkat = $this->input->post('tingkat', TRUE);
+        $nama_kegiatan = htmlspecialchars($this->input->post('nama_kegiatan', TRUE));
+        $tanggal = htmlspecialchars($this->input->post('tanggal', TRUE));
+        $tingkat = htmlspecialchars($this->input->post('tingkat', TRUE));
+        $user = htmlspecialchars($this->input->post('user', TRUE));
 
         $data = [
+            'id_kegiatan' => 0,
             'nama_kegiatan' => $nama_kegiatan,
             'tanggal' => $tanggal,
             'tingkat' => $tingkat,
-            'status' => 0
+            'status' => 0,
+            'user' => $user
         ];
 
         $this->db->insert('generate_jadwal', $data);
 
         $this->session->set_flashdata('Pesan', 'Ditambahkan');
         return redirect(base_url() . 'jadwal');
+    }
+
+    public function generate()
+    {
+        $user = $this->input->get('user');
+        $query = $this->Jadwal_m->generate_jadwal($user);
+        $cek = $this->db->affected_rows($query) == 0;
+        date_default_timezone_set('Asia/Jakarta');
+        if ($cek) {
+            $this->session->set_flashdata('Pesan_Error', 'Silahkan Tambahkan Minimal Satu Kegiatan Pada Menu Generate Kegiatan');
+            return redirect(base_url() . 'jadwal');
+        } else {
+            foreach ($query as $row) {
+                $data = [
+                    'id_kegiatan' => $row->id,
+                    'nama_kegiatan' => $row->nama_kegiatan,
+                    'tanggal' => date('Y-m-d'),
+                    'tingkat' => $row->tingkat,
+                    'status' => 0,
+                    'user' => $row->user
+                ];
+                $this->db->insert('generate_jadwal', $data);
+            }
+            $this->session->set_flashdata('Pesan', 'Di Generate');
+            return redirect(base_url() . 'jadwal');
+        }
     }
 }

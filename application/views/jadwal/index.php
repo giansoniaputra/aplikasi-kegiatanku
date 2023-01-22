@@ -1,4 +1,5 @@
 <div class="flash-data" data-flashdata="<?= $this->session->flashdata("Pesan"); ?>"></div>
+<div class="flash-data-error" data-flashdata="<?= $this->session->flashdata("Pesan_Error"); ?>"></div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
     <div class="modal-dialog">
@@ -21,20 +22,27 @@
     </div>
 </div>
 <div class="container-fluid">
-
+    <?php
+    $this->Jadwal_m->cek_jadwal($email);
+    $cek = $this->db->affected_rows() > 0;
+    ?>
     <div class="row ml-2 mb-3">
-        <button type="button" class="btn btn-warning btn-icon-split mr-2 mb-2" data-toggle="modal" data-target="#exampleModal">
-            <span class="icon text-white-50">
-                <i class="fas fa-flag"></i>
-            </span>
-            <span class="text">Generate Kegiatan</span>
-        </button>
-        <button type="button" class="btn btn-warning btn-icon-split mb-2" data-toggle="modal" data-target="#exampleModal">
-            <span class="icon text-white-50">
-                <i class="fas fa-flag"></i>
-            </span>
-            <span class="text">Tambah Kegiatan</span>
-        </button>
+        <?php if ($cek) : ?>
+            <button type="button" id="data_ada" class="btn btn-warning btn-icon-split mb-2 mr-2">
+            <?php else : ?>
+                <a href="<?= base_url('jadwal/generate?user=') . $email ?>" class="btn btn-warning btn-icon-split mb-2 mr-2">
+                <?php endif; ?>
+                <span class="icon text-white-50">
+                    <i class="fas fa-flag"></i>
+                </span>
+                <span class="text">Generate Kegiatan</span>
+                </a>
+                <button type="button" class="btn btn-warning btn-icon-split mb-2" data-toggle="modal" data-target="#exampleModal">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-flag"></i>
+                    </span>
+                    <span class="text">Tambah Kegiatan</span>
+                </button>
     </div>
 
     <div class="row">
@@ -44,7 +52,7 @@
                     <h6 class="m-0 font-weight-bold text-danger">Kegiatan Yang Belum Terlaksana</h6>
                 </div>
                 <div class="card-body">
-                    <?php $query = $this->Jadwal_m->tampil_kegiatan(); ?>
+                    <?php $query = $this->Jadwal_m->tampil_kegiatan($email); ?>
                     <?php $i = 1; ?>
                     <?php foreach ($query as $row) : ?>
                         <div class="input-group mb-2 mr-sm-2">
@@ -72,7 +80,7 @@
                     <h6 class="m-0 font-weight-bold text-success">Kegiatan Yang Telah Terlaksana</h6>
                 </div>
                 <div class="card-body">
-                    <?php $query2 = $this->Jadwal_m->tampil_kegiatan_selesai(); ?>
+                    <?php $query2 = $this->Jadwal_m->tampil_kegiatan_selesai($email); ?>
                     <?php $a = 1; ?>
                     <?php foreach ($query2 as $row) : ?>
                         <div class="input-group mb-2 mr-sm-2">
@@ -102,9 +110,9 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
 <script src="<?= base_url('assets/') ?>js/alert.js"></script>
+<script src="<?= base_url('assets/') ?>js/alert-error.js"></script>
 <?php $j = 1; ?>
 <?php foreach ($query as $row) : ?>
     <script>
@@ -112,13 +120,13 @@
             $("#check<?= $j; ?>").on("change", function() {
                 let id = $("#id<?= $j++; ?>").val();
                 $.ajax({
-                    url: "jadwal/update",
+                    url: "<?= base_url('jadwal/update'); ?>",
                     data: {
                         id: id
                     },
                     type: "POST",
                     success: function(data) {
-                        document.location.href = 'jadwal'
+                        document.location.href = '<?= base_url('jadwal/'); ?>'
                     }
                 });
             });
@@ -133,13 +141,13 @@
             $("#check-out<?= $k; ?>").on("change", function() {
                 let id = $("#id2<?= $k++; ?>").val();
                 $.ajax({
-                    url: "jadwal/back_update",
+                    url: "<?= base_url('jadwal/back_update'); ?>",
                     data: {
                         id: id
                     },
                     type: "POST",
                     success: function(data) {
-                        document.location.href = 'jadwal'
+                        document.location.href = '<?= base_url('jadwal/'); ?>'
                     }
                 });
             });
@@ -149,23 +157,12 @@
 
 <script>
     $(document).ready(function() {
-        $('#simpan_kegiatan').on("click", function() {
-            let nama_kegiatan = $('#nama_kegiatan').val();
-            let tanggal = $('#tanggal').val();
-            let tingkat = $('#tingkat').val();
-
-            $.ajax({
-                url: "jadwal/tambah_kegiatan",
-                data: {
-                    nama_kegiatan: nama_kegiatan,
-                    tanggal: tanggal,
-                    tingkat: tingkat,
-                },
-                type: "POST",
-                // success: function(data) {
-                //     document.location.href = 'jadwal'
-                // }
-            });
-        });
-    });
+        $("#data_ada").on("click", function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Warning!',
+                text: 'Data Sudah Pernah Di Generate'
+            })
+        })
+    })
 </script>
