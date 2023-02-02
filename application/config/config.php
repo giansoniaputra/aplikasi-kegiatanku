@@ -24,6 +24,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://localhost/jadwal_uum/';
+// $config['base_url'] = 'http://giankriptografi.000webhostapp.com/jadwal_uum/';
 
 /*
 |--------------------------------------------------------------------------
