@@ -13,7 +13,7 @@
                                 $waktu = $sisa - $ref;
                                 ?>
                                 <?php if (date('d', $waktu) > 1) : ?>
-                                    <div class="h6 mb-0 font-weight-bold text-white my-2">* Dalam waktu <span class="text-warning"><?= date('d', $waktu) ?> hari</span>. Kamu punya kegiatan yaitu: <span class="text-warning"><b><?= $row->nama_kegiatan; ?></b></span> </div>
+                                    <div class="h6 mb-0 font-weight-bold text-white my-2">* Dalam waktu <span class="text-warning"><?= date('d', $waktu) ?> hari</span> (<?= tanggal_hari($row->tanggal, TRUE) ?>). Kamu punya kegiatan yaitu: <span class="text-warning"><b><?= $row->nama_kegiatan; ?></b></span> </div>
                                 <?php elseif (date('d', $waktu) == 1) : ?>
                                     <div class="h6 mb-0 font-weight-bold text-white my-2">* <span class="text-warning">Besok </span> Kamu punya kegiatan yaitu: <span class="text-warning"><b><?= $row->nama_kegiatan; ?></b></span> </div>
                                 <?php endif; ?>
