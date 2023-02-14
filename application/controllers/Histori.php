@@ -18,7 +18,7 @@ class Histori extends CI_Controller
                 'name' => $session['users']['name'],
                 'email' => $session['users']['email'],
                 'image' => $session['users']['image'],
-                'title' => 'Histori Kegiatan',
+                'title' => 'History\'s Quest',
                 'tanggal' => date('Y-m-d')
             ];
             $this->load->view('templates/header', $data);
@@ -100,9 +100,9 @@ class Histori extends CI_Controller
         ];
 
         $this->db->where('id', $id);
-        $this->db->update('referensi_kegiatan', $data);
+        $this->db->update('generate_jadwal', $data);
 
         $this->session->set_flashdata('Pesan', 'Di Ubah');
-        return redirect(base_url() . 'generate');
+        return redirect(base_url() . 'histori');
     }
 }

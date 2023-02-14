@@ -41,4 +41,14 @@ class Jadwal_m extends CI_Model
         $this->db->where('tanggal', $tanggal);
         return $this->db->get()->result();
     }
+
+    function cek_kegiatan($id)
+    {
+        return $this->db->get_where('generate_jadwal', ['id' => $id])->row_array();
+    }
+
+    function cek_cp($user)
+    {
+        return $this->db->get_where('combat_point', ['user' => $user])->row_array();
+    }
 }

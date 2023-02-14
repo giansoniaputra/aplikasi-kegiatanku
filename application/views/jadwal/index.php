@@ -1,11 +1,11 @@
 <div class="flash-data" data-flashdata="<?= $this->session->flashdata("Pesan"); ?>"></div>
 <div class="flash-data-error" data-flashdata="<?= $this->session->flashdata("Pesan_Error"); ?>"></div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false" style="background-image:url('<?= base_url('assets/img/bg-naga.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content text-white border-white" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Quest</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -28,28 +28,28 @@
     ?>
     <div class="row ml-2 mb-3">
         <?php if ($cek) : ?>
-            <button type="button" id="data_ada" class="btn btn-warning btn-icon-split mb-2 mr-2">
+            <button type="button" id="data_ada" class="btn btn-warning btn-icon-split mb-2 mr-2" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
             <?php else : ?>
-                <a href="<?= base_url('jadwal/generate?user=') . $email ?>" class="btn btn-warning btn-icon-split mb-2 mr-2">
+                <a href="<?= base_url('jadwal/generate?user=') . $email ?>" class="btn btn-warning btn-icon-split mb-2 mr-2" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
                 <?php endif; ?>
                 <span class="icon text-white-50">
                     <i class="fas fa-flag"></i>
                 </span>
-                <span class="text">Generate Kegiatan</span>
+                <span class="text">Generate Quest</span>
                 </a>
-                <button type="button" class="btn btn-warning btn-icon-split mb-2" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-warning btn-icon-split mb-2" data-toggle="modal" data-target="#exampleModal" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
                     <span class="icon text-white-50">
                         <i class="fas fa-flag"></i>
                     </span>
-                    <span class="text">Tambah Kegiatan</span>
+                    <span class="text">Add Quest</span>
                 </button>
     </div>
 
     <div class="row">
         <div class="col-lg-6 mb-4">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-danger">Kegiatan Yang Belum Terlaksana</h6>
+            <div class="card shadow mb-4" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
+                <div class="card-header py-3" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
+                    <h6 class="m-0 font-weight-bold text-danger">Uncompleted Quest</h6>
                 </div>
                 <div class="card-body">
                     <?php $query = $this->Jadwal_m->tampil_kegiatan($email); ?>
@@ -75,9 +75,9 @@
             </div>
         </div>
         <div class="col-lg-6 mb-4">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-success">Kegiatan Yang Telah Terlaksana</h6>
+            <div class="card shadow mb-4" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
+                <div class="card-header py-3" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
+                    <h6 class="m-0 font-weight-bold text-success">Completed Quest</h6>
                 </div>
                 <div class="card-body">
                     <?php $query2 = $this->Jadwal_m->tampil_kegiatan_selesai($email); ?>
@@ -96,11 +96,11 @@
         </div>
     </div>
     <div class="col-xl-5 col-md-6 mb-4">
-        <div class="card border-left-primary bg-info shadow h-100 py-2">
+        <div class="card border-left-primary bg-info shadow h-100 py-2" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="h6 mb-0 font-weight-bold text-white">* Jika kegiatan berwarna hijau maka kegiatan itu di utamakan</div>
+                        <div class="h6 mb-0 font-weight-bold text-white">* If the quest is green then the quest is of great value</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa fa-info-circle fa-2x text-gray-300"></i>
@@ -119,10 +119,12 @@
         $(document).ready(function() {
             $("#check<?= $j; ?>").on("change", function() {
                 let id = $("#id<?= $j++; ?>").val();
+                let user = $("#user-id").val();
                 $.ajax({
                     url: "<?= base_url('jadwal/update'); ?>",
                     data: {
-                        id: id
+                        id: id,
+                        user : user
                     },
                     type: "POST",
                     success: function(data) {
@@ -140,10 +142,12 @@
         $(document).ready(function() {
             $("#check-out<?= $k; ?>").on("change", function() {
                 let id = $("#id2<?= $k++; ?>").val();
+                let user = $("#user-id").val();
                 $.ajax({
                     url: "<?= base_url('jadwal/back_update'); ?>",
                     data: {
-                        id: id
+                        id: id,
+                        user:user
                     },
                     type: "POST",
                     success: function(data) {

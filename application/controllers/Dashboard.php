@@ -18,7 +18,7 @@ class Dashboard extends CI_Controller
                 'name' => $session['users']['name'],
                 'email' => $session['users']['email'],
                 'image' => $session['users']['image'],
-                'title' => 'Histori Kegiatan',
+                'title' => 'Guild',
                 'tanggal' => date('Y-m-d')
             ];
             $this->load->view('templates/header', $data);

@@ -23,6 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+// $config['base_url'] = '192.168.0.100/jadwal_uum/';
 $config['base_url'] = 'http://localhost/jadwal_uum/';
 // $config['base_url'] = 'http://giankriptografi.000webhostapp.com/jadwal_uum/';
 

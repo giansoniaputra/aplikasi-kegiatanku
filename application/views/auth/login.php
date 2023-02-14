@@ -5,19 +5,19 @@
 
         <div class="col-lg-7">
 
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
+            <div class="card bg-info text-white o-hidden border-0 shadow-lg my-5" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:center;">
+                <div class="card-body p-0 ">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
                         <div class="col-lg">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Login Page!</h1>
+                                    <h1 class="h4 text-white mb-4">Welcome to Guild!</h1>
                                 </div>
                                 <?= $this->session->flashdata('pesan'); ?>
                                 <form class="user" action="" method="post">
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" id="email" placeholder="Enter Email Address..." name="email" value="<?= $email ?>">
+                                        <input type="text" class="form-control form-control-user" id="email" placeholder="Enter Email Guild..." name="email" value="<?= $email ?>">
                                         <?php echo form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                     <div class="form-group">
@@ -25,18 +25,18 @@
                                         <?php echo form_error('password', '<small class="text-danger pl-3">', '</small>') . '<br>'; ?>
                                         <i class="fa fa-eye pl-3 " id="eye" aria-hidden="true"></i>
                                         <i class="fa fa-eye-slash pl-3 text-danger d-none" id="eye-slash" aria-hidden="true"></i>
-                                        <small id="see">Tampilkan Password</small>
+                                        <small id="see">Show Password</small>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
-                                        Login
+                                        Let't Start Some Quest
                                     </button>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    <a class="small text-white" href="forgot-password.html">Forgot Password?</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="<?= base_url(); ?>auth/register">Create an Account!</a>
+                                    <a class="small text-white" href="<?= base_url(); ?>auth/register">Create an Account!</a>
                                 </div>
                             </div>
                         </div>
@@ -56,13 +56,13 @@
             $('#eye').toggleClass("d-none");
             $('#eye-slash').toggleClass("d-none");
             $('#password').attr('type', 'text');
-            $('#see').html('Sembunyikan Password');
+            $('#see').html('Hidden Password');
         });
         $('#eye-slash').on("click", function() {
             $('#eye').toggleClass("d-none");
             $('#eye-slash').toggleClass("d-none");
             $('#password').attr('type', 'password');
-            $('#see').html('Tampilkan Password');
+            $('#see').html('Show Password');
         });
     });
 </script>

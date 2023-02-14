@@ -1,23 +1,23 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Histori Kegiatan</h1>
+    <h1 class="h3 mb-2 text-white">Question Histories</h1>
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <label for="">Tanggal Kegiatan</label>
+    <div class="card shadow mb-4 text-white" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
+        <div class="card-header py-3" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
+            <label for="">Select Date</label>
             <input class="form-control form-control-sm col-sm-2" type="date" id="tanggal">
             <input type="hidden" value="<?= $email; ?>" id="user">
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="tableku" width="100%" cellspacing="0">
+                <table class="table table-bordered text-white" id="tableku" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Nama Kegiatan</th>
-                            <th>Tanggal Kegiatan</th>
+                            <th>Name of Question</th>
+                            <th>Date</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -28,22 +28,22 @@
         </div>
     </div>
 
-    <h1 class="h3 mb-2 text-gray-800">Kegiatan Yang Akan Datang</h1>
+    <h1 class="h3 mb-2 text-white">Question To Do Next</h1>
     <?php $next_agenda = $this->Histori_m->tampil_data_next($tanggal, $email);
     $i = 1; ?>
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
+    <div class="card shadow mb-4" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
+        <div class="card-header py-3" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
 
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="tableku2" width="100%" cellspacing="0">
+                <table class="table table-bordered text-white" id="tableku2" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Nama Kegiatan</th>
-                            <th>Tanggal Kegiatan</th>
+                            <th>Name of Question</th>
+                            <th>Date</th>
                             <th> - </th>
                         </tr>
                     </thead>
@@ -65,11 +65,11 @@
                                 </td>
                             </tr>
                             <!-- modal edit -->
-                            <div class="modal fade" id="exampleModalEdit<?= $i++; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
+                            <div class="modal fade" id="exampleModalEdit<?= $i++; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false" style="background-image:url('<?= base_url('assets/img/bg-naga.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
+                                <div class="modal-dialog" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
+                                    <div class="modal-content border-white text-white" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Edit Kegiatan</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Quest</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -78,23 +78,23 @@
                                             <form action="<?= base_url() ?>histori/edit_kegiatan" method="POST">
                                                 <input type="hidden" value="<?= $row->id; ?>" name="id">
                                                 <div class="form-group">
-                                                    <label for="nama_kegiatan">Nama Kegiatan</label>
+                                                    <label for="nama_kegiatan">Name of Quest</label>
                                                     <input type="text" class="form-control" id="nama_kegiatan" aria-describedby="emailHelp" name="nama_kegiatan" placeholder="Masukan Nama Kegiatan" required value="<?= $row->nama_kegiatan; ?>">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="tanggal">Tanggal</label>
+                                                    <label for="tanggal">Date</label>
                                                     <input type="date" class="form-control" id="tanggal" aria-describedby="emailHelp" name="tanggal" value="<?= $row->tanggal; ?>" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="tingkat">Tingkat</label>
+                                                    <label for="tingkat">Difficulty</label>
                                                     <select class="form-control" id="tingkat" name="tingkat">
-                                                        <option value="" disabled>Pilih Tingkat Kegiatan</option>
+                                                        <option value="" disabled>Select Difficulty Level</option>
                                                         <?php if ($row->tingkat == 1) : ?>
-                                                            <option value="1" selected>Sangat Penting</option>
-                                                            <option value="2">Penting</option>
+                                                            <option value="1" selected>Very Hard</option>
+                                                            <option value="2">Hard</option>
                                                         <?php elseif ($row->tingkat == 2) : ?>
-                                                            <option value="1">Sangat Penting</option>
-                                                            <option value="2" selected>Penting</option>
+                                                            <option value="1">Very Hard</option>
+                                                            <option value="2" selected>Hard</option>
                                                         <?php endif; ?>
                                                     </select>
                                                 </div>

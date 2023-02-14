@@ -19,7 +19,7 @@ class Auth extends CI_Controller
             $this->rules_login();
             if ($this->form_validation->run() == FALSE) {
                 $data = [
-                    'title' => 'CI3 | Login',
+                    'title' => 'Guild | Login',
                     'name' => set_value('name'),
                     'email' => set_value('email'),
                 ];
@@ -68,7 +68,7 @@ class Auth extends CI_Controller
         $this->rules_register();
         if ($this->form_validation->run() == FALSE) {
             $data = [
-                'title' => 'CI3 | Registration',
+                'title' => 'Guild | Registration',
                 'name' => set_value('name'),
                 'email' => set_value('email'),
             ];
@@ -87,6 +87,12 @@ class Auth extends CI_Controller
             ];
 
             $this->db->insert('users', $data);
+            
+            $data2 = [
+                'quest_point' => 0,
+                'user' => htmlspecialchars($this->input->post('email', true)),
+            ];
+            $this->db->insert('combat_point', $data2);
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data Berhasil Terdaftar</div>');
             redirect('auth/');
         }

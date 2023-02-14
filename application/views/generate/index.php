@@ -1,10 +1,10 @@
 <div class="flash-data" data-flashdata="<?= $this->session->flashdata("Pesan"); ?>"></div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false" style="background-image:url('<?= base_url('assets/img/bg-naga.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content text-white border-white" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Quest</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -23,22 +23,22 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="row ml-2 mb-3">
-        <button type="button" class="btn btn-warning btn-icon-split mr-2 mb-2" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-warning btn-icon-split mr-2 mb-2" data-toggle="modal" data-target="#exampleModal" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
             <span class="icon text-white-50">
                 <i class="fas fa-flag"></i>
             </span>
-            <span class="text">Tambah Kegiatan</span>
+            <span class="text">Add Quest</span>
         </button>
     </div>
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Table Kegiatan</h6>
+    <div class="card shadow mb-4" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
+        <div class="card-header py-3" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
+            <h6 class="m-0 font-weight-bold text-white">Table of Quest</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <?php $query = $this->Generate_m->tampil_data($email); ?>
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered text-white" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -65,11 +65,11 @@
                                     <a href="<?= base_url('generate/hapus_kegiatan?id=' . $row->id) ?>" class="border-0 bg-transparent"><i class="fa fa-trash text-danger"></i></a>
                                 </td>
                             </tr>
-                            <div class="modal fade" id="exampleModalEdit<?= $i++; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+                            <div class="modal fade" id="exampleModalEdit<?= $i++; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false" style="background-image:url('<?= base_url('assets/img/bg-naga.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
                                 <div class="modal-dialog">
-                                    <div class="modal-content">
+                                    <div class="modal-content text-white border-white" style="background-image:url('<?= base_url('assets/img/bg-quest.jpg'); ?>'); background-repeat:no-repeat; background-size:cover; background-position:end;">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Quest</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -78,19 +78,19 @@
                                             <form action="<?= base_url() ?>generate/edit_kegiatan" method="POST">
                                                 <input type="hidden" value="<?= $row->id; ?>" name="id">
                                                 <div class="form-group">
-                                                    <label for="nama_kegiatan">Nama Kegiatan</label>
+                                                    <label for="nama_kegiatan">Name of Quest</label>
                                                     <input type="text" class="form-control" id="nama_kegiatan" aria-describedby="emailHelp" name="nama_kegiatan" placeholder="Masukan Nama Kegiatan" required value="<?= $row->nama_kegiatan; ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tingkat">Tingkat</label>
                                                     <select class="form-control" id="tingkat" name="tingkat">
-                                                        <option value="" disabled>Pilih Tingkat Kegiatan</option>
+                                                        <option value="" disabled>Select Difficulty Level</option>
                                                         <?php if ($row->tingkat == 1) : ?>
-                                                            <option value="1" selected>Sangat Penting</option>
-                                                            <option value="2">Penting</option>
+                                                            <option value="1" selected>Very Hard</option>
+                                                            <option value="2">Hard</option>
                                                         <?php elseif ($row->tingkat == 2) : ?>
-                                                            <option value="1">Sangat Penting</option>
-                                                            <option value="2" selected>Penting</option>
+                                                            <option value="1">Very Hard</option>
+                                                            <option value="2" selected>Hard</option>
                                                         <?php endif; ?>
                                                     </select>
                                                 </div>

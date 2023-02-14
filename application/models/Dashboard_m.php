@@ -14,4 +14,9 @@ class Dashboard_m extends CI_Model
         $this->db->order_by('id', 'DESC');
         return $this->db->get('generate_jadwal')->result();
     }
+
+    function combat_point()
+    {
+        return $this->db->get('combat_point')->row_array()();
+    }
 }

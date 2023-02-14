@@ -18,7 +18,7 @@ class Jadwal extends CI_Controller
                 'name' => $session['users']['name'],
                 'email' => $session['users']['email'],
                 'image' => $session['users']['image'],
-                'title' => 'Kegiatan Hari Ini',
+                'title' => 'Question to Day',
                 'tanggal' => date('Y-m-d')
             ];
             $this->load->view('templates/header', $data);
@@ -33,6 +33,7 @@ class Jadwal extends CI_Controller
     public function update()
     {
         $id = $this->input->post('id');
+        $user = $this->input->post('user');
 
         $data = [
             'status' => 1
@@ -40,17 +41,52 @@ class Jadwal extends CI_Controller
         $this->db->where('id', $id);
         $this->db->update('generate_jadwal', $data);
         $this->session->set_flashdata('pesan', 'Selesai');
+
+        $cek = $this->Jadwal_m->cek_kegiatan($id);
+        $cek_cp = $this->Jadwal_m->cek_cp($user);
+
+        if ($cek["tingkat"] == 1) {
+            $data_cp = [
+                'quest_point' => $cek_cp["quest_point"] + 100,
+            ];
+            $this->db->where('user', $user);
+            $this->db->update('combat_point', $data_cp);
+        } else if ($cek["tingkat"] == 2) {
+            $data_cp = [
+                'quest_point' => $cek_cp["quest_point"] + 50,
+            ];
+            $this->db->where('user', $user);
+            $this->db->update('combat_point', $data_cp);
+        }
     }
 
     public function back_update()
     {
         $id = $this->input->post('id');
+        $user = $this->input->post('user');
 
         $data = [
             'status' => 0
         ];
         $this->db->where('id', $id);
         $this->db->update('generate_jadwal', $data);
+
+        $cek = $this->Jadwal_m->cek_kegiatan($id);
+        $cek_cp = $this->Jadwal_m->cek_cp($user);
+
+        if ($cek["tingkat"] == 1) {
+            $data_cp = [
+                'quest_point' => $cek_cp["quest_point"] - 100,
+            ];
+            $this->db->where('user', $user);
+            $this->db->update('combat_point', $data_cp);
+        } else if ($cek["tingkat"] == 2) {
+            $data_cp = [
+                'quest_point' => $cek_cp["quest_point"] - 50,
+            ];
+            $this->db->where('user', $user);
+            $this->db->update('combat_point', $data_cp);
+        }
     }
 
     public function tambah_kegiatan()

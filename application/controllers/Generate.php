@@ -18,7 +18,7 @@ class Generate extends CI_Controller
                 'name' => $session['users']['name'],
                 'email' => $session['users']['email'],
                 'image' => $session['users']['image'],
-                'title' => 'Generate Kegiatan',
+                'title' => 'Question',
                 'tanggal' => date('Y-m-d')
             ];
             $this->load->view('templates/header', $data);
